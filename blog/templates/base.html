@@ -12,13 +12,15 @@
     <meta name="msapplication-TileColor" content="#000">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>{{ title }}</title>
   </head>
   <body>
     <header>
       {% include 'includes/header.html' %}
     </header>
     <main>
-      {% block title %}
+      {% block header %}
+        {{ header }}
       {% endblock %}
       {% block content %}
         Произошла ошибка загрузки контента страницы

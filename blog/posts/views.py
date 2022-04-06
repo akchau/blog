@@ -1,12 +1,24 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
     template = 'posts/index.html'
-    return render(request, template)
+    title = 'Главная'
+    header = 'Все записи'
+    context ={
+        'title': title,
+        'header': header,
+    }
+    return render(request, template, context)
 
 def group_posts(request, slug):
     template = 'posts/group_list.html'
-    return render(request, template)
+    title = 'группа'
+    header = 'Записи группы'
+    context ={
+        'title': title,
+        'header': header,
+    }
+    return render(request, template, context)
+    
 
 
