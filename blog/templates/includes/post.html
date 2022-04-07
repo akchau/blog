@@ -1,5 +1,20 @@
-<div class="border border-warning rounded">
-    <article>
-        Пост блога
-    </article> 
-</div>
+<article>
+  {% for post in posts %}
+    <div class="border border-warning ">
+      <br>
+      <div class="container">
+        <h5><span style="color:#ff4f00 ">{{ post.author.get_full_name }}</span></h5>
+        {{ post.pub_date|date:"d E Y" }}
+        <hr>
+        <p>{{ post.text }}</p>
+        <span style="color:#ff4f00"><a href="" >*Тут будет группа</a></span>
+        <br>
+        <br>
+      </div>
+    </div>
+    {% if not forloop.last %}
+      <br>
+      <br>
+    {% endif %}
+  {% endfor %}
+</article> 
