@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.contrib import admin # импортируем чтобы указать обработчик из библиотеки django.contrib
+from django.urls import path, include # необходимые методы управления адресамии в Django
 
 urlpatterns = [
-    path('', include('posts.urls', namespace='posts')),
-    path('admin/', admin.site.urls, name='admin'),
-    path('auth/', include('users.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
+    path('', include('posts.urls', namespace='posts')), # путь до главной страницы в нем ищутся все адреса
+    path('admin/', admin.site.urls, name='admin'), # путь до старниц приложения admin-зоны
+    path('auth/', include('users.urls')), # путь для управления пользователем кастомный
+    path('auth/', include('django.contrib.auth.urls')), # путь для управления пользователем стандартный если не нашлось ничего в кастомном
 ]
