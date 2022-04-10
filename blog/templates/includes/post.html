@@ -7,7 +7,9 @@
         {{ post.pub_date|date:"d E Y" }}
         <hr>
         <p>{{ post.text }}</p>
-        <span style="color:#ff4f00"><a href="" >*Тут будет группа</a></span>
+        {% if post.group %}
+          <span style="color:#ff4f00"><a href="{% url 'posts:group_post' post.group.slug %}" >{{ post.group.title }}</a></span>
+          {% endif %}
         <br>
         <br>
       </div>
