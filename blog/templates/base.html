@@ -11,7 +11,9 @@
     <meta name="theme-color" content="black">
     <link rel="stylesheet" href={% static "css/bootstrap.min.css" %}>
     <title>
-      {{ title }}
+      {% block title  %}
+        {{ title }}
+      {% endblock %}
     </title>
   </head>
   <body>
@@ -21,10 +23,12 @@
     <div class="container">
       <main>
         <br>
-        {% block header %}
-          <h1>{{ header }}</h1>
-        <br>
+        <h1>
+          {% block header %}
+            {{ header }}
           {% endblock %}
+        </h1>
+        <br>
         {% block content %}
           Произошла ошибка загрузки контента страницы
         {% endblock %}
