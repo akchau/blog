@@ -3,7 +3,11 @@
   <hr>
   <div>
     <article>
-      {% include 'includes/post.html' %}
-    </article> 
+      {% include 'posts/includes/paginator.html' %}
+      {% for post in page_obj %}
+        {% include 'includes/post.html' %}
+      {% endfor %}
+      {% include 'posts/includes/paginator.html' %}
+    </article>
   </div>
 {% endblock %}

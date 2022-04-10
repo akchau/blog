@@ -1,22 +1,15 @@
-<article>
-  {% for post in posts %}
-    <div class="border border-warning ">
-      <br>
-      <div class="container">
-        <h5><span style="color:#ff4f00 ">{{ post.author.get_full_name }}</span></h5>
-        {{ post.pub_date|date:"d E Y" }}
-        <hr>
-        <p>{{ post.text }}</p>
-        {% if post.group %}
-          <span style="color:#ff4f00"><a href="{% url 'posts:group_post' post.group.slug %}" >{{ post.group.title }}</a></span>
-          {% endif %}
-        <br>
-        <br>
-      </div>
-    </div>
-    {% if not forloop.last %}
-      <br>
-      <br>
+<div class="border border-warning ">
+  <br>
+  <div class="container">
+    <h5><a href={% url 'posts:profile' post.author.username %} style="color:#ff4f00 ">{{ post.author.get_full_name }}</a></h5>
+    {{ post.pub_date|date:"d E Y" }}
+    <br>
+    <br>
+    <p>{{ post.text }}</p>
+    {% if post.group %}
+      <span style="color:#ff4f00"><a href="{% url 'posts:group_post' post.group.slug %}" >{{ post.group.title }}</a></span>
     {% endif %}
-  {% endfor %}
-</article> 
+    <br>
+    <br>
+  </div>
+</div>
