@@ -5,9 +5,11 @@
       <img src={% static "img/logo.png" %} width="30" height="30" class="d-inline-block align-top" alt="">
       <span style="color:#ff4f00">Какой</span>-то блог</a>
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link" href="/admin">Админка</a>
-        </li>
+        {% if user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Админка</a>
+          </li>
+        {% endif %}
       </ul>
     </a>
   </div>

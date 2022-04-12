@@ -61,11 +61,12 @@ TEMPLATES = [
         'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [ # получают на вход request и возвращает свои аргументы которые встают в конец response
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
+                'django.contrib.auth.context_processors.auth', # добавляет статус юзера AnonymousUser или экземпляр модели юзер
                 'django.contrib.messages.context_processors.messages',
+                # 'core.context_processors.year.year',
             ],
         },
     },
@@ -124,3 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+# Настройки входа
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'posts:index'
+LOGOUT_REDIRECT_URL = 'users:logout'

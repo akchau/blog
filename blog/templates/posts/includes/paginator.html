@@ -1,37 +1,37 @@
-    {% if page_obj.has_other_pages %}
-    <nav aria-label="Page navigation" class="my-5">
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li class="page-item"><a class="page-link" href="?page=1">Первая</a></li>
+    {% if page_obj.has_other_pages %} 
+    <nav aria-label="Page navigation" class="my-5"><!-- блок навигации для программ чтения с экрана и вспомогательных технологий-->
+      <ul class="pagination"><!--общий класс для паджинатора-->
+        {% if page_obj.has_previous %}<!--проверяем есть ли страницы перед предыдущей-->
+          <li class="page-item"><a class="page-link" href="?page=1">Первая</a></li><!--Ссылка на первую страницу-->
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"><!--получаем номер предыдущей страницы и переходим по ссылке-->
               Предыдущая
             </a>
           </li>
         {% endif %}
-        {% for i in page_obj.paginator.page_range %}
-            {% if page_obj.number == i %}
-              <li class="page-item active">
-                <span class="page-link">{{ i }}</span>
+        {% for i in page_obj.paginator.page_range %} <!--цикл по общему колчеству страниц-->
+            {% if page_obj.number == i %} <!--решаем активная или неактивная область-->
+              <li class="page-item active"><!--если да рисуем активную-->
+                <span class="page-link">{{ i }}</span><!--сама кнопка с цифрой без ссылки-->
               </li>
             {% else %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              <li class="page-item"><!--если нет рисуем не активную-->
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a><!--даем ссылку и кнопку с цифрой-->
               </li>
             {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+        {% endfor %}<!--отрисовали кнопки-->
+        {% if page_obj.has_next %}<!--проверяем есть ли следующяя страница-->
+          <li class="page-item"><!--ессли да отрисовываем ее-->
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}"><!--ссылка на следующую страницу-->
               Следующая
             </a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"><!--ссылка на последнюю страницу-->
               Последняя
             </a>
           </li>
-        {% endif %}    
+        {% endif %}
       </ul>
-    </nav>
+    </nav><!-- блок навигации -->
     {% endif %}
