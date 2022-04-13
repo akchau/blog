@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +129,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Настройки входа
 LOGIN_URL = 'users:login'
-# LOGIN_REDIRECT_URL = 'posts:index'
+LOGIN_REDIRECT_URL = 'posts:index'
 # LOGOUT_REDIRECT_URL = 'users:logout'
