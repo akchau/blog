@@ -30,4 +30,6 @@ urlpatterns = [
 
     # Сообщение об успешном восстановлении пароля
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
+
+    path('cabinet/<slug:username>/', views.cabinet, name='cabinet')
 ] 

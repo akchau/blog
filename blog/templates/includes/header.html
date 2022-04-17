@@ -14,32 +14,67 @@
             >Об авторе</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'about:tech' %}">Технологии</a>
+          <a class="nav-link 
+            {% if request.resolver_match.view_name  == 'about:tech' %}
+              active
+            {% endif %}"
+            href="{% url 'about:tech' %}"
+            >Технологии</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link 
+          {% if request.resolver_match.view_name  == 'posts:index' %}
+            active
+          {% endif %}"
+          href="{% url 'posts:index' %}"
+          >Главная</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link 
+          {% if request.resolver_match.view_name  == 'posts:index' %}
+            active
+          {% endif %}"
+          href="{% url 'posts:index' %}"
+          >Авторы</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link 
+          {% if request.resolver_match.view_name  == 'posts:index' %}
+            active
+          {% endif %}"
+          href="{% url 'posts:index' %}"
+          >Группы</a>
         </li>
         {% if user.is_authenticated %}
-          <li class="nav-item"> 
-            <a class="nav-link" href="">Новая запись</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link" href="{% url 'users:password_change' %}">Изменить пароль</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Пользователь: {{ user.username }}</a>
-          </li>
           {% if user.is_superuser %}
-          <li class="nav-item">
-            <a class="nav-link" href="/admin">Админка</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Админка</a>
+            </li>
           {% endif %}
+          <li class="nav-item"> 
+            <a class="nav-link 
+            {% if request.resolver_match.view_name  == 'users:cabinet' %}
+              active
+            {% endif %}"
+            href="{% url 'users:cabinet' user.username %}"
+            >{{ user.get_full_name }}</a>
+          </li>
         {% else %}
           <li class="nav-item"> 
-            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+            <a class="nav-link 
+            {% if request.resolver_match.view_name  == 'users:login' %}
+              active
+            {% endif %}"
+            href="{% url 'users:login' %}"
+            >Войти</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+            <a class="nav-link 
+            {% if request.resolver_match.view_name  == 'users:signup' %}
+              active
+            {% endif %}"
+            href="{% url 'users:signup' %}"
+            >Регистрация</a>
           </li>
         {% endif %}
       </ul>
