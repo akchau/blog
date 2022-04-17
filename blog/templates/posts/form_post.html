@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <hr>
+  <div>
+    <article>
+      <form method="post" action="{% url 'users:feedback' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </article>
+</div>
+{% endblock %}

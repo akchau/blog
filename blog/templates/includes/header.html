@@ -45,6 +45,14 @@
           href="{% url 'posts:index' %}"
           >Группы</a>
         </li>
+        <li class="nav-item"> 
+          <a class="nav-link 
+          {% if request.resolver_match.view_name  == 'users:feedback' %}
+            active
+          {% endif %}"
+          href="{% url 'users:feedback' %}"
+          >Обратная связь</a>
+        </li>
         {% if user.is_authenticated %}
           {% if user.is_superuser %}
             <li class="nav-item">
