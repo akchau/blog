@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'), # путь до старниц приложения admin-зоны
     path('auth/', include('users.urls', namespace='users')), # путь для управления пользователем кастомный
     path('auth/', include('django.contrib.auth.urls')), # путь для управления пользователем стандартный если не нашлось ничего в кастомном
+    path('about/', include('about.urls', namespace='about'))
 ]
