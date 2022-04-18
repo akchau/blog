@@ -26,7 +26,13 @@ def cabinet(request, username):
 def feedback(request):
     form = Feedback(request.POST or None)
     if form.is_valid():
-        send_mail(form.get('subject'), form.get('text'), 'webmaster@localhost', ['gleb.lazarev20@yandex.ru'], fail_silently=False)
+        subject = form.cleaned_data['subject']
+        body = (
+            form.cleaned_data['message'],
+            form.cleaned_data['email']
+        )
+        message = "\n".join(body)
+        send_mail(subject, message, 'webmaster@localhost', ['gleb.lazarev20@yandex.ru'], fail_silently=False)
         return redirect('users:cabinet', username=request.user)
     template = 'posts/form_post.html'
     context = {
