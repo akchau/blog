@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -53,11 +54,15 @@ def profile(request, username):
     }
     return render(request, template, context)
 
+
+@login_required
 def post_edit(request, post_id):
     return HttpResponse('Страница редактирования поста')
 
 def post_detail(request, post_id):
     return HttpResponse('Страница поста')
 
+
+@login_required
 def post_create(request):
     return HttpResponse('Страница создания поста')

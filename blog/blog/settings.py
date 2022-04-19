@@ -67,7 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth', # добавляет статус юзера AnonymousUser или экземпляр модели юзер
                 'django.contrib.messages.context_processors.messages',
-                # 'core.context_processors.year.year',
+                'core.context_processors.year.year',
             ],
         },
     },

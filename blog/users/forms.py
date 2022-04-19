@@ -15,3 +15,8 @@ class Feedback(forms.Form):
     message = forms.CharField(label='Письмо', widget=forms.Textarea, label_suffix=': ', help_text='Ваше сообщение', max_length=2000, error_messages={'max_length': 'Превышено допустимое кол-во симоволов!', 'required': 'Это обязятельное поле'})
     email = forms.EmailField(label='Контактый email', label_suffix=': ', help_text='Куда ответить на ваше сообшение', error_messages={'invalid': 'Некорректный email', 'required': 'Это обязятельное поле'})
 
+class EditName(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
+
