@@ -9,9 +9,13 @@
     {% if post.group %}
       <span style="color:#ff4f00"><a href="{% url 'posts:group_post' post.group.slug %}" >{{ post.group.title }}</a></span>
       <br>
-      <a href = {% url 'posts:post_detail' post.pk %} style="color:#ff4f00 ">Открыть запись</a>
     {% endif %}
+    <a href = {% url 'posts:post_detail' post.pk %} style="color:#ff4f00 ">Открыть запись</a>
     <br>
+    {% if user == post.author %}
+      <a href = {% url 'posts:post_edit' post.pk %} style="color:#ff4f00 ">Ред.</a>
+    {% endif %}
+      <br>
     <br>
   </div>
 </div>

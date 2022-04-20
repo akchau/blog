@@ -61,7 +61,25 @@ def profile(request, username):
 
 @login_required
 def post_edit(request, post_id):
-    return HttpResponse('Страница редактирования поста')
+    post = get_object_or_404(Post, pk=post_id)
+    if request.user != post.author:
+        return redirect('posts:post_detail', post_id=post_id)
+    form = PostForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=post,
+    )
+    if form.is_valid():
+        form.save()
+        return redirect('posts:post_detail', post_id=post.id)
+    context = {
+        'title': 'Редактирование поста',
+        'action': 'Редактируйте запись',
+        'form': form,
+        'is_edit': True,
+        'post_id': post_id
+    }
+    return render(request, 'posts/post_create.html', context)
 
 def post_detail(request, post_id):
     template = 'posts/index.html'

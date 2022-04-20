@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-  <hr>
   <div>
     <article>
       {% if user.is_authenticated %}
         <form method="LINK" action="{% url 'posts:post_create' %}">
           <input type="submit" value="Новая запись">
         </form>
+      <br>
       {% endif %}
       {% include 'posts/includes/paginator.html' %}
       {% for post in page_obj %}
