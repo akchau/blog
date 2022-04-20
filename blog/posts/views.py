@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Group
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from .forms import PostForm
 
 
 def index(request):
@@ -75,4 +76,16 @@ def post_detail(request, post_id):
 
 @login_required
 def post_create(request):
-    return HttpResponse('Страница создания поста')
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        new_post = form.save(commit=False)
+        new_post.author = request.user
+        form.save(commit=True)
+        return redirect('posts:profile', username=request.user)
+    template = 'posts/post_create.html'
+    context = {
+        'title': 'Новая запись',
+        'action': 'Добавьте запись',
+        'form': form
+    }
+    return render(request, template, context)

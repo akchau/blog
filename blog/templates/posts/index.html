@@ -3,9 +3,11 @@
   <hr>
   <div>
     <article>
-      <form method="LINK" action="{% url 'posts:post_create' %}">
-        <input type="submit" value="Новая запись">
-      </form>
+      {% if user.is_authenticated %}
+        <form method="LINK" action="{% url 'posts:post_create' %}">
+          <input type="submit" value="Новая запись">
+        </form>
+      {% endif %}
       {% include 'posts/includes/paginator.html' %}
       {% for post in page_obj %}
         {% include 'includes/post.html' %}
