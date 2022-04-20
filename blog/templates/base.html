@@ -28,6 +28,11 @@
             {{ header }}
           {% endblock %}
         </h1>
+      <h3>
+        {% block subheader %}
+          {{subheader}}
+        {% endblock %}
+      </h3>
         <br>
         {% block content %}
           Произошла ошибка загрузки контента страницы

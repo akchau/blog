@@ -41,15 +41,18 @@ def profile(request, username):
     User = get_user_model()
     author = get_object_or_404(User, username=username)
     posts = Post.objects.filter(author=author).order_by('-pub_date')
+    post_count = author.posts.count()
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     template = 'posts/index.html'
     title = author.get_full_name
     header = author.get_full_name
+    subheader =f'Всего постов: {post_count}'
     context ={
         'title': title,
         'header': header,
+        'subheader': subheader,
         'page_obj': page_obj,
     }
     return render(request, template, context)
@@ -60,7 +63,14 @@ def post_edit(request, post_id):
     return HttpResponse('Страница редактирования поста')
 
 def post_detail(request, post_id):
-    return HttpResponse('Страница поста')
+    template = 'posts/index.html'
+    title = 'Пост'
+    page_obj = Post.objects.filter(pk=post_id)
+    context ={
+        'title': title,
+        'page_obj': page_obj,
+    }
+    return render(request, template, context)
 
 
 @login_required

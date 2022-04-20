@@ -3,7 +3,7 @@
 <h3>Данные пользователя</h3>
 <hr>
 <p><h5>Имя пользователя: {{ user.get_full_name}} <small><a href="{% url 'users:edit_name' user.username %}">изм.</a></small></h5>
-<p><h6>Логин: {{ user.username}} <small><a href="{% url 'users:password_change' %}">изм.</a></small></h6>
+<p><h6>Логин: {{ user.username}} <small><a href="{% url 'users:edit_login' user.username %}">изм.</a></small></h6>
 <p><h6>Email: {{ user.email}} <small><a href="{% url 'users:password_change' %}">изм.</a></small></h6>
 <hr>
     <h3>Профиль</h3>

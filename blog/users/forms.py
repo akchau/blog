@@ -18,5 +18,11 @@ class Feedback(forms.Form):
 class EditName(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name',)
+        fields = ('first_name','last_name')
+
+
+class EditLogin(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username',)
 

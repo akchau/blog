@@ -36,4 +36,6 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
 
     path('edit_name/<slug:username>/', views.edit_name, name='edit_name'),
+
+    path('edit_login/<slug:username>/', views.edit_login, name='edit_login'),
 ] 

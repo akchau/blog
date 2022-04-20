@@ -8,6 +8,8 @@
     <p>{{ post.text }}</p>
     {% if post.group %}
       <span style="color:#ff4f00"><a href="{% url 'posts:group_post' post.group.slug %}" >{{ post.group.title }}</a></span>
+      <br>
+      <a href = {% url 'posts:post_detail' post.pk %} style="color:#ff4f00 ">Открыть запись</a>
     {% endif %}
     <br>
     <br>
