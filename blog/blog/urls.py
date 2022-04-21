@@ -23,3 +23,11 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')), # путь для управления пользователем стандартный если не нашлось ничего в кастомном
     path('about/', include('about.urls', namespace='about'))
 ]
+
+handler404 = 'core.views.page_not_found'
+handler400 = 'core.views.bad_request'
+handler403 = 'core.views.forbidden'
+handler500 = 'core.views.server_error'
+
+
+

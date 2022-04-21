@@ -1,0 +1,6 @@
+# templates/core/404.html
+{% extends "base.html" %}
+{% block content %}
+  <p>Страницы с адресом {{ path }} не существует</p>
+  <a href="{% url 'posts:index' %}">Идите на главную</a>
+{% endblock %}

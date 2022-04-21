@@ -23,9 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h15-lqp40ic+6k*r73&#9xe#s1%3@k$2hsmykugg$n-!0=#$d3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
+]
 
 
 # Application definition
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
+    'sorl.thumbnail', # Приложение для работы с изображениями
 ]
 
 MIDDLEWARE = [
@@ -136,3 +142,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 ADMINS = 'gleb.lazarev20@yandex.ru'
+
+
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
