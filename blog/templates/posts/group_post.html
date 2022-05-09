@@ -1,0 +1,19 @@
+{% extends 'posts/base_post.html' %}
+{% block avatar %}
+  {% load thumbnail %}
+  {% thumbnail group.image "960x339" crop="center" upscale=True as im %}
+    <img class="card-img my-2" src="{{ im.url }}">
+  {% endthumbnail %}
+{% endblock %}
+{% block user_button %}
+  {% if user == group.main_admin %}
+    <form method="LINK" action="{% url 'posts:group_edit' group.slug %}">
+      <input type="submit" value="Редактировать группу">
+    </form>
+  {% endif %}
+{% endblock %}
+{% block list %}
+  {% for post in page_obj %}
+    {% include 'posts/includes/post.html' %}
+  {% endfor %}
+{% endblock %}

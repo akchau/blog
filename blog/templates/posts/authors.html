@@ -1,6 +1,6 @@
 {% extends 'posts/base_post.html' %}
 {% block list %}
-  {% for post in page_obj %}
-    {% include 'posts/includes/post.html' %}
+  {% for author in page_obj %}
+    {% include 'posts/includes/author.html' %}
   {% endfor %}
 {% endblock %}

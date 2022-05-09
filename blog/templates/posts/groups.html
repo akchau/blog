@@ -1,0 +1,11 @@
+{% extends 'posts/base_post.html' %}
+{% block top_button %}
+  <form method="LINK" action="{% url 'posts:group_create' %}">
+    <input type="submit" value="Новая группа">
+  </form>
+{% endblock %}
+{% block list %}
+  {% for group in page_obj %}
+    {% include 'posts/includes/group.html' %}
+  {% endfor %}
+{% endblock %}

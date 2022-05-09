@@ -1,0 +1,9 @@
+{% extends 'create_form.html' %}
+{% block form %}
+{% if is_edit %}
+  <form method="post" action="{% url 'posts:group_edit' slug %}" enctype="multipart/form-data">{% csrf_token %}
+{% else %}
+  <form method="post" action="{% url 'posts:group_create' %}" enctype="multipart/form-data">{% csrf_token %}
+{% endif %}
+{% endblock %}
+

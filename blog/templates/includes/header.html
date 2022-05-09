@@ -31,18 +31,18 @@
         </li>
         <li class="nav-item"> 
           <a class="nav-link 
-          {% if request.resolver_match.view_name  == 'posts:index' %}
+          {% if request.resolver_match.view_name  == 'posts:authors' %}
             active
           {% endif %}"
-          href="{% url 'posts:index' %}"
+          href="{% url 'posts:authors' %}"
           >Авторы</a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link 
-          {% if request.resolver_match.view_name  == 'posts:index' %}
+          {% if request.resolver_match.view_name  == 'posts:groups' %}
             active
           {% endif %}"
-          href="{% url 'posts:index' %}"
+          href="{% url 'posts:groups' %}"
           >Группы</a>
         </li>
         <li class="nav-item"> 

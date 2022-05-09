@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin # импортируем чтобы указать обработчик из библиотеки django.contrib
 from django.urls import path, include # необходимые методы управления адресамии в Django
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('posts.urls', namespace='posts')), # путь до главной страницы в нем ищутся все адреса
@@ -28,6 +30,11 @@ handler404 = 'core.views.page_not_found'
 handler400 = 'core.views.bad_request'
 handler403 = 'core.views.forbidden'
 handler500 = 'core.views.server_error'
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
 
 
 
