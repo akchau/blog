@@ -5,6 +5,11 @@
     <img class="card-img my-2" src="{{ im.url }}">
   {% endthumbnail %}
 {% endblock %}
+{% block top_button %}
+<form method="LINK" action="{% url 'posts:group_post_create' group.slug %}">
+  <input type="submit" value="Новая запись для группы">
+</form>
+{% endblock %}
 {% block user_button %}
   {% if user == group.main_admin %}
     <form method="LINK" action="{% url 'posts:group_edit' group.slug %}">

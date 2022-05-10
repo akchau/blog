@@ -70,5 +70,50 @@ class Post(CreatedModel):
         ordering = ('-pub_date',)
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+
     def __str__(self):
         return self.text[:15]
+
+
+class Comment(CreatedModel):
+    """Модель комментария"""
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        blank=False,
+        related_name='comments'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=False,
+        related_name='comments'
+    )
+    text = models.TextField(
+        'Текст поста',
+        help_text='Введите текст поста',
+    )
+    class Meta:
+        ordering = ('-pub_date',)
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return self.text[:15]
+
+
+class Follow(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name='follower'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name='following'
+    )

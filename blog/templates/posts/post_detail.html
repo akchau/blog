@@ -1,4 +1,13 @@
 {% extends 'posts/base_post.html' %}
 {% block list %}
   {% include 'posts/includes/post.html' %}
+  <h5>Создать комментарий</h5>
+  <hr>
+  {% include 'posts/includes/add_comment.html' %}
+  <br>
+  <h5>Комментарии</h5>
+  <hr>
+  {% for comment in page_obj %}
+    {% include 'posts/includes/comment.html' %}
+  {% endfor %}
 {% endblock %}

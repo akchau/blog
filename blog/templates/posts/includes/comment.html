@@ -1,0 +1,10 @@
+<article>
+  <div class="border border-warning ">
+    <div class="container">
+      <h5><a href={% url 'posts:profile' comment.author.username %} style="color:#ff4f00 ">{{ comment.author.get_full_name }}</a></h5>
+      {{ comment.pub_date|date:"d E Y" }}
+      <p>{{ comment.text }}</p>
+    </div>
+  </div>
+  <br>
+</article>

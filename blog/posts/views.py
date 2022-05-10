@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Group
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from .models import Post, Group, Comment
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, GroupForm
+from .forms import PostForm, GroupForm, GroupPostForm, CommentForm
 
 User = get_user_model()
 
@@ -68,15 +68,20 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
+    comments = Comment.objects.filter(post=post)
+    page_obj = get_page_obj(request, comments)
+    form = CommentForm()
     title = f'Пост'
-    header = f'Пост пользователя {post}'
+    header = f'Пост пользователя {post.author.username}'
     subheader = f'Детальная информация поста'
     context ={
         'title': title,
         'header': header,
         'subheader': subheader,
         'post': post,
+        'page_obj': page_obj,
+        'form': form
     }
     return render(request, template, context)
 
@@ -135,7 +140,7 @@ def group_create(request):
 
 @login_required
 def post_edit(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     if request.user != post.author:
         return redirect('posts:post_detail', post_id=post_id)
     form = PostForm(
@@ -165,7 +170,7 @@ def post_edit(request, post_id):
 
 @login_required
 def group_edit(request, slug):
-    group = Group.objects.get(slug=slug)
+    group = get_object_or_404(Group, slug=slug)
     if request.user != group.main_admin:
         return redirect('posts:group_post', slug=slug)
     form = GroupForm(
@@ -206,7 +211,7 @@ def add_comment(request, post_id):
 
 
 def authors(request):
-    authors = User.objects.all()
+    authors = get_list_or_404(User)
     page_obj = get_page_obj(request, authors)
     template = 'posts/authors.html'
     title = 'Все пользователи'
@@ -222,7 +227,7 @@ def authors(request):
 
 
 def groups(request):
-    groups = Group.objects.all()
+    groups = get_list_or_404(Group)
     page_obj = get_page_obj(request, groups)
     template = 'posts/groups.html'
     title = 'Группы'
@@ -233,5 +238,33 @@ def groups(request):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
+    }
+    return render(request, template, context)
+
+
+def new_group_post(request, slug):
+    group = get_object_or_404(Group, slug=slug)
+    form = GroupPostForm(
+        request.POST or None,
+        files=request.FILES or None,
+    )
+    if form.is_valid():
+        new_post = form.save(commit=False)
+        new_post.group = group
+        new_post.author = request.user
+        form.save(commit=True)
+        return redirect('posts:group_post', slug=group.slug)
+    template = 'posts/group_post_create.html'
+    title = f'Новый пост для сообщества: {group.title}'
+    header = f'Новый пост для сообщества: {group.title}'
+    subheader = f'Создайте новый пост для сообщества: {group.title}'
+    action = 'Создайте новый пост'
+    context = {
+        'title': title,
+        'header': header,
+        'subheader': subheader,
+        'form': form,
+        'action': action,
+        'slug': slug
     }
     return render(request, template, context)

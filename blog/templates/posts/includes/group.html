@@ -3,6 +3,7 @@
     <div class="container">
       <h5><a href={% url 'posts:group_post' group.slug %} style="color:#ff4f00 ">{{ group.title }}</a></h5>
       <small>{{ group.description }}</small>
+      <p>Админ: {{ group.main_admin }}
     </div>
   </div>
   <br>

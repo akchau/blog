@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Group
+from .models import Post, Group, Comment
 
 class PostAdmin(admin.ModelAdmin): # конфигурация отображения модели
     list_display = ('pk', 'text', 'pub_date', 'author', 'group', 'image',) # страницы которые отображаются в админке
@@ -14,9 +14,16 @@ class GroupAdmin(admin.ModelAdmin):
     list_editable = ('main_admin','title', 'description', 'slug',)
     search_fields = ('title','description',)
     empty_value_display = '-пусто-'
-    search_fields = ('title',)
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('pk','post', 'author', 'text',)
+    list_editable = ('text',)
+    search_fields = ('text',)
+    empty_value_display = '-пусто-'
 
 
 
 admin.site.register(Post, PostAdmin) # модель зарегестрированная тут будет показана в админке в разделе своего приложения
 admin.site.register(Group, GroupAdmin)
+admin.site.register(Comment, CommentAdmin)
