@@ -6,14 +6,13 @@
       {% endblock %}
       {% if user.is_authenticated %}
         {% block top_button %}
-          <form method="LINK" action="{% url 'posts:post_create' %}">
-            <input type="submit" value="Новая запись">
-          </form>
         {% endblock %}
+        <br>
         {% block user_button %}
         {% endblock %}
       {% endif %}
       <br>
+      {% include 'posts/includes/switcher.html' %}
       {% include 'posts/includes/paginator.html' %}
       {% block list %}
       {% endblock %}

@@ -80,12 +80,14 @@ class Comment(CreatedModel):
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
+        null=False,
         blank=False,
         related_name='comments'
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        null=False,
         blank=False,
         related_name='comments'
     )
@@ -117,3 +119,7 @@ class Follow(models.Model):
         blank=False,
         related_name='following'
     )
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+

@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
-from .models import Post, Group, Comment
+from .models import Post, Group, Comment, Follow
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm, GroupForm, GroupPostForm, CommentForm
+from django.views.decorators.cache import cache_page
 
 User = get_user_model()
 
@@ -15,6 +16,7 @@ def get_page_obj(request, models):
     return page_obj
 
 
+# @cache_page(60 * 20)
 def index(request):
     posts = Post.objects.order_by('-pub_date')
     page_obj = get_page_obj(request, posts)
@@ -27,6 +29,24 @@ def index(request):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
+        'index': True,
+    }
+    return render(request, template, context)
+
+
+def follow_index(request):
+    posts = Post.objects.filter(author__following__user=request.user).order_by('-pub_date')
+    page_obj = get_page_obj(request, posts)
+    template = 'posts/index.html'
+    title = 'Главная'
+    header = 'Лента новостей'
+    subheader = 'Все записи пользователей'
+    context ={
+        'title': title,
+        'header': header,
+        'subheader': subheader,
+        'page_obj': page_obj,
+        'follow': True,
     }
     return render(request, template, context)
 
@@ -52,8 +72,11 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = Post.objects.filter(author=author).order_by('-pub_date')
     post_count = author.posts.count()
+    following = False
+    if Follow.objects.filter(user=request.user, author=author).exists():
+        following = True
     page_obj = get_page_obj(request, posts)
-    template = 'posts/index.html'
+    template = 'posts/profile.html'
     title = author.get_full_name
     header = author.get_full_name
     subheader =f'Всего постов: {post_count}'
@@ -62,6 +85,8 @@ def profile(request, username):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
+        'author': author,
+        'following': following
     }
     return render(request, template, context)
 
@@ -268,3 +293,36 @@ def new_group_post(request, slug):
         'slug': slug
     }
     return render(request, template, context)
+
+@login_required
+def follow_index(request):
+    user = request.user
+    posts = Post.objects.filter(author__following__user=user)
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    template = 'posts/index.html'
+    context = {
+        'title': f'Мои подписки {user.username}',
+        'page_obj': page_obj,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def profile_follow(request, username):
+    author = get_object_or_404(User, username=username)
+    if Follow.objects.filter(user=request.user, author=author).exists():
+        return redirect('posts:profile', username=username)
+    if request.user != author:
+        Follow.objects.create(user=request.user, author=author)
+    return redirect('posts:profile', username=username)
+
+
+@login_required
+def profile_unfollow(request, username):
+    author = get_object_or_404(User, username=username)
+    if Follow.objects.filter(user=request.user, author=author).exists():
+        if request.user != author:
+            Follow.objects.filter(user=request.user, author=author).delete()
+    return redirect('posts:profile', username=username)
