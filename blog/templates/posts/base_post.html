@@ -4,15 +4,14 @@
     <article>
       {% block avatar %}
       {% endblock %}
-      {% if user.is_authenticated %}
-        {% block top_button %}
-        {% endblock %}
-        <br>
-        {% block user_button %}
+      {% block buttons %}
+      {% endblock %}
+      <br>
+      {% if switcher %}
+        {% block switcher %}
+          {% include 'posts/includes/switcher.html' %}
         {% endblock %}
       {% endif %}
-      <br>
-      {% include 'posts/includes/switcher.html' %}
       {% include 'posts/includes/paginator.html' %}
       {% block list %}
       {% endblock %}

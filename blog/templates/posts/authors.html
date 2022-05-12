@@ -1,4 +1,7 @@
 {% extends 'posts/base_post.html' %}
+{% block switcher %}
+  {% include 'posts/includes/author_switcher.html' %}
+{% endblock %}
 {% block list %}
   {% for author in page_obj %}
     {% include 'posts/includes/author.html' %}

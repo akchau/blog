@@ -1,0 +1,24 @@
+{% extends 'posts/base_post.html' %}
+{% block avatar %}
+{% endblock %}
+{% block buttons %}
+  <div class="mb-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="nav nav-pills">
+        <li class="nav-item"> 
+          <a class="nav-link"
+            href="{% url 'posts:group_create' %}"
+            >Новая группа</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+{% endblock %}
+{% block switcher %}
+  {% include 'posts/includes/group_switcher.html' %}
+{% endblock %}
+{% block list %}
+  {% for group in page_obj %}
+    {% include 'posts/includes/group.html' %}
+  {% endfor %}
+{% endblock %}

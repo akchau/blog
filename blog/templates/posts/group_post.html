@@ -5,17 +5,23 @@
     <img class="card-img my-2" src="{{ im.url }}">
   {% endthumbnail %}
 {% endblock %}
-{% block top_button %}
-<form method="LINK" action="{% url 'posts:group_post_create' group.slug %}">
-  <input type="submit" value="Новая запись для группы">
-</form>
-{% endblock %}
-{% block user_button %}
-  {% if user == group.main_admin %}
-    <form method="LINK" action="{% url 'posts:group_edit' group.slug %}">
-      <input type="submit" value="Редактировать группу">
-    </form>
-  {% endif %}
+{% block buttons %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <ul class="nav nav-pills">
+    {% if user == group.main_admin %}
+      <li class="nav-item"> 
+        <a class="nav-link"
+          href="{% url 'posts:group_edit' group.slug %}"
+          >Редактировать группу</a>
+      </li>
+    {% endif %}
+    <li class="nav-item"> 
+      <a class="nav-link"
+        href="{% url 'posts:group_post_create' group.slug %}"
+        >Новая запись для группы</a>
+    </li>
+  </ul>
+</nav>
 {% endblock %}
 {% block list %}
   {% for post in page_obj %}

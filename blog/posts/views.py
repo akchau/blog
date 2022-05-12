@@ -1,9 +1,10 @@
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from .models import Post, Group, Comment, Follow
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, GroupForm, GroupPostForm, CommentForm
+from .forms import PostForm, GroupForm, CommentForm
 from django.views.decorators.cache import cache_page
 
 User = get_user_model()
@@ -14,6 +15,7 @@ def get_page_obj(request, models):
     page_number = request.GET.get('page')
     page_obj =paginator.get_page(page_number)
     return page_obj
+
 
 
 # @cache_page(60 * 20)
@@ -29,26 +31,27 @@ def index(request):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
-        'index': True,
+        'switcher': True,
     }
     return render(request, template, context)
 
 
-def follow_index(request):
+def index_follow(request):
     posts = Post.objects.filter(author__following__user=request.user).order_by('-pub_date')
     page_obj = get_page_obj(request, posts)
     template = 'posts/index.html'
-    title = 'Главная'
-    header = 'Лента новостей'
-    subheader = 'Все записи пользователей'
+    title = 'Подписки'
+    header = 'Мои подписки'
+    subheader = 'Авторы на которых я подписан'
     context ={
         'title': title,
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
-        'follow': True,
+        'switcher': True,
     }
     return render(request, template, context)
+
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
@@ -64,7 +67,7 @@ def group_posts(request, slug):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
-        'group': group
+        'group': group,
     }
     return render(request, template, context)
 
@@ -73,12 +76,15 @@ def profile(request, username):
     posts = Post.objects.filter(author=author).order_by('-pub_date')
     post_count = author.posts.count()
     following = False
+    self_follow = False
+    if request.user != author:
+        self_follow = True
     if Follow.objects.filter(user=request.user, author=author).exists():
         following = True
     page_obj = get_page_obj(request, posts)
     template = 'posts/profile.html'
     title = author.get_full_name
-    header = author.get_full_name
+    header = title
     subheader =f'Всего постов: {post_count}'
     context ={
         'title': title,
@@ -86,7 +92,8 @@ def profile(request, username):
         'subheader': subheader,
         'page_obj': page_obj,
         'author': author,
-        'following': following
+        'following': following,
+        'self_follow': self_follow
     }
     return render(request, template, context)
 
@@ -247,6 +254,26 @@ def authors(request):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
+        'switcher': True,
+    }
+    return render(request, template, context)
+
+
+def following_authors(request):
+    # authors = get_list_or_404(User)
+    author_ids = request.user.follower.values_list('author', flat=True)
+    authors = User.objects.filter(username__in=author_ids)
+    page_obj = get_page_obj(request, authors)
+    template = 'posts/authors.html'
+    title = 'Мои подписки'
+    header = 'Мои подписки'
+    subheader ='Мои подписки'
+    context ={
+        'title': title,
+        'header': header,
+        'subheader': subheader,
+        'page_obj': page_obj,
+        'switcher': True,
     }
     return render(request, template, context)
 
@@ -263,13 +290,14 @@ def groups(request):
         'header': header,
         'subheader': subheader,
         'page_obj': page_obj,
+        'switcher': True,
     }
     return render(request, template, context)
 
 
 def new_group_post(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    form = GroupPostForm(
+    form = PostForm(
         request.POST or None,
         files=request.FILES or None,
     )
@@ -291,20 +319,6 @@ def new_group_post(request, slug):
         'form': form,
         'action': action,
         'slug': slug
-    }
-    return render(request, template, context)
-
-@login_required
-def follow_index(request):
-    user = request.user
-    posts = Post.objects.filter(author__following__user=user)
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    template = 'posts/index.html'
-    context = {
-        'title': f'Мои подписки {user.username}',
-        'page_obj': page_obj,
     }
     return render(request, template, context)
 

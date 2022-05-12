@@ -1,0 +1,30 @@
+{% if user.is_authenticated %}
+  <div class="row my-3">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if request.resolver_match.view_name  == 'posts:groups' %}active{% endif %}"
+          href="{% url 'posts:groups' %}"
+        >
+          Все группы
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if request.resolver_match.view_name  == 'posts:groups' %}active{% endif %}"
+          href="{% url 'posts:groups' %}"
+        >
+          Избранные группы
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if request.resolver_match.view_name  == 'posts:groups' %}active{% endif %}"
+          href="{% url 'posts:groups' %}"
+        >
+          Мои группы
+        </a>
+      </li>
+    </ul>
+  </div>
+{% endif %}

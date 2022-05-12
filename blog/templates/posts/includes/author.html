@@ -2,6 +2,7 @@
   <div class="border border-warning ">
     <div class="container">
       <h5><a href={% url 'posts:profile' author.username %} style="color:#ff4f00 ">{{ author.get_full_name }}</a></h5>
+      <small>{{ author.username }}</small>
     </div>
   </div>
   <br>

@@ -5,7 +5,7 @@ from django import forms
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('text', 'group', 'image',)
+        fields = ('text', 'image',)
 
 
 class GroupForm(forms.ModelForm):
@@ -13,10 +13,6 @@ class GroupForm(forms.ModelForm):
         model = Group
         fields = ('image', 'title', 'slug', 'description',)
 
-class GroupPostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ('text', 'image',)
 
 class CommentForm(forms.ModelForm):
     class Meta:

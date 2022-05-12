@@ -25,13 +25,17 @@
           <a class="nav-link 
           {% if request.resolver_match.view_name  == 'posts:index' %}
             active
+          {% elif request.resolver_match.view_name  == 'posts:follow_index' %}
+          active
           {% endif %}"
           href="{% url 'posts:index' %}"
-          >Главная</a>
+          >Посты</a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link 
           {% if request.resolver_match.view_name  == 'posts:authors' %}
+            active
+          {% elif request.resolver_match.view_name  == 'posts:following_authors' %}
             active
           {% endif %}"
           href="{% url 'posts:authors' %}"
@@ -88,4 +92,4 @@
       </ul>
     </a>
   </div>
-</nav
+</nav>

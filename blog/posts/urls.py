@@ -16,9 +16,10 @@ urlpatterns = [
     path('create/', views.post_create, name='post_create'), # адрес создания поста
     path('group_create/', views.group_create, name='group_create'), # адрес создания поста
     path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
+    path('authors_following/', views.following_authors, name='following_authors'),
     path('authors/', views.authors, name='authors'),
     path('groups/', views.groups, name='groups'),
-    path('follow/', views.follow_index, name='follow_index'),
+    path('follow/', views.index_follow, name='follow_index'),
     path(
         'profile/<str:username>/follow/',
         views.profile_follow, 
