@@ -1,10 +1,12 @@
 from django.db import models
 from datetime import datetime
 
+
 class CreatedModel(models.Model):
     """Абстрактная модель. Добавляет дату создания"""
+
     pub_date = models.DateTimeField(
-        'Дата создания',
+        "Дата создания",
         auto_now_add=True,
     )
 

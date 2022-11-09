@@ -13,28 +13,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin # импортируем чтобы указать обработчик из библиотеки django.contrib
-from django.urls import path, include # необходимые методы управления адресамии в Django
+from django.contrib import (
+    admin,
+)  # импортируем чтобы указать обработчик из библиотеки django.contrib
+from django.urls import (
+    path,
+    include,
+)  # необходимые методы управления адресамии в Django
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('posts.urls', namespace='posts')), # путь до главной страницы в нем ищутся все адреса
-    path('admin/', admin.site.urls, name='admin'), # путь до старниц приложения admin-зоны
-    path('auth/', include('users.urls', namespace='users')), # путь для управления пользователем кастомный
-    path('auth/', include('django.contrib.auth.urls')), # путь для управления пользователем стандартный если не нашлось ничего в кастомном
-    path('about/', include('about.urls', namespace='about'))
+    path(
+        "", include("posts.urls", namespace="posts")
+    ),  # путь до главной страницы в нем ищутся все адреса
+    path(
+        "admin/", admin.site.urls, name="admin"
+    ),  # путь до старниц приложения admin-зоны
+    path(
+        "auth/", include("users.urls", namespace="users")
+    ),  # путь для управления пользователем кастомный
+    path(
+        "auth/", include("django.contrib.auth.urls")
+    ),  # путь для управления пользователем стандартный если не нашлось ничего в кастомном
+    path("about/", include("about.urls", namespace="about")),
 ]
 
-handler404 = 'core.views.page_not_found'
-handler400 = 'core.views.bad_request'
-handler403 = 'core.views.forbidden'
-handler500 = 'core.views.server_error'
+handler404 = "core.views.page_not_found"
+handler400 = "core.views.bad_request"
+handler403 = "core.views.forbidden"
+handler500 = "core.views.server_error"
 
 if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
-    )
-
-
-
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

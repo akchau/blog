@@ -9,13 +9,19 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('posts', '0003_group_image'),
+        ("posts", "0003_group_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='group',
-            name='main_admin',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='community', to=settings.AUTH_USER_MODEL, verbose_name='Создатель'),
+            model_name="group",
+            name="main_admin",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="community",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Создатель",
+            ),
         ),
     ]
