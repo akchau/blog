@@ -18,7 +18,8 @@ class Feedback(forms.Form):
         label_suffix=": ",
         help_text="Укажите тему сообщения",
         max_length=200,
-        error_messages={"max_length": "Превышено допустимое кол-во симоволов!"},
+        error_messages={
+            "max_length": "Превышено допустимое кол-во симоволов!"},
     )
     message = forms.CharField(
         label="Письмо",

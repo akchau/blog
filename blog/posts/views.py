@@ -1,5 +1,5 @@
-from django.urls import reverse
-from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from django.shortcuts import (get_list_or_404, get_object_or_404,
+                              redirect, render)
 from .models import Post, Group, Comment, Follow
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
@@ -17,7 +17,7 @@ def get_page_obj(request, models):
     return page_obj
 
 
-# @cache_page(60 * 20)
+@cache_page(60 * 20)
 def index(request):
     posts = Post.objects.order_by("-pub_date")
     page_obj = get_page_obj(request, posts)
@@ -106,9 +106,9 @@ def post_detail(request, post_id):
     comments = Comment.objects.filter(post=post)
     page_obj = get_page_obj(request, comments)
     form = CommentForm()
-    title = f"Пост"
+    title = "Пост"
     header = f"Пост пользователя {post.author.username}"
-    subheader = f"Детальная информация поста"
+    subheader = "Детальная информация поста"
     context = {
         "title": title,
         "header": header,

@@ -43,4 +43,5 @@ def server_error(request):
         "title": "Ошибка 500",
         "header": "Ошибка 500",
     }
-    return render(request, context, template, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+    return render(
+        request, context, template, status=HTTPStatus.INTERNAL_SERVER_ERROR)

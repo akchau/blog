@@ -35,7 +35,7 @@ urlpatterns = [
     ),  # путь для управления пользователем кастомный
     path(
         "auth/", include("django.contrib.auth.urls")
-    ),  # путь для управления пользователем стандартный если не нашлось ничего в кастомном
+    ),  # путь для управления пользователем стандартный
     path("about/", include("about.urls", namespace="about")),
 ]
 
@@ -45,4 +45,5 @@ handler403 = "core.views.forbidden"
 handler500 = "core.views.server_error"
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
