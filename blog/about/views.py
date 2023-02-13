@@ -13,9 +13,11 @@ class InfoView:
 
 
 class ContactPage(TemplateView):
+    """Страница О себе."""
     template_name = "about/info_page.html"
 
     def get_context_data(self, **kwargs):
+        """Метод для создания контекста"""
         context = super().get_context_data(**kwargs)
         content = InfoView
         content.header = "Об авторе"
@@ -27,9 +29,11 @@ class ContactPage(TemplateView):
 
 
 class TechPage(TemplateView):
+    """Страница Технологии."""
     template_name = "about/info_page.html"
 
     def get_context_data(self, **kwargs):
+        """Метод для создания контекста"""
         context = super().get_context_data(**kwargs)
         content = InfoView
         content.header = "Технологии"

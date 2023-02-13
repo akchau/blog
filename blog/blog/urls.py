@@ -39,10 +39,10 @@ urlpatterns = [
     path("about/", include("about.urls", namespace="about")),
 ]
 
-handler404 = "core.views.page_not_found"
-handler400 = "core.views.bad_request"
-handler403 = "core.views.forbidden"
-handler500 = "core.views.server_error"
+handler404 = "core.views.page_not_found"  # кастомная страница 404
+handler400 = "core.views.bad_request"  # кастомная страница 400
+handler403 = "core.views.forbidden"  # кастомная страница 401
+handler500 = "core.views.server_error"  # кастомная страница 500
 
 if settings.DEBUG:
     urlpatterns += static(
