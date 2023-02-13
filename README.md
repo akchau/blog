@@ -10,7 +10,27 @@
 ### Технологии
 Python 3.7
 Django 2.2.19
-### Запуск проекта в dev-режиме
+
+### Локальный запуск в Docker
+- Установите Docker
+- В папке c Dockerfile выполните команду сборки образа
+docker build -t blog:v1 .
+- Проверьте образ
+docker image ls
+- Запустите контейнер
+docker run --name web -it -p 8000:8000 akcaau/blog:latest
+- Проверьте контейнер
+docker container ls
+
+```
+pip install -r requirements.txt
+``` 
+- В папке с файлом manage.py выполните команду:
+```
+python3 manage.py runserver
+```
+
+### Локальный запуск проекта в dev-режиме
 - Установите и активируйте виртуальное окружение
 - Установите зависимости из файла requirements.txt
 ```
