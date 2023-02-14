@@ -3,6 +3,7 @@ from django import forms
 
 
 class PostForm(forms.ModelForm):
+    """Форма для создания и редактирования поста"""
     class Meta:
         model = Post
         fields = (
@@ -12,6 +13,7 @@ class PostForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
+    """Форма для создания и редактирования группы"""
     class Meta:
         model = Group
         fields = (
@@ -23,6 +25,7 @@ class GroupForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    """Форма для создания и редактирования коммента"""
     class Meta:
         model = Comment
         fields = ("text",)

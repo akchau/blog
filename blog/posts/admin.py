@@ -3,6 +3,7 @@ from .models import Post, Group, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
+    """Отображение в админке постов"""
     list_display = (
         "pk",
         "text",
@@ -24,6 +25,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class GroupAdmin(admin.ModelAdmin):
+    """Отображение в админке групп"""
     list_display = (
         "pk",
         "main_admin",
@@ -46,6 +48,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
+    """Отображение в админке комментов"""
     list_display = (
         "pk",
         "post",
