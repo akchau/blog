@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 
 def page_not_found(request, exception):
+    """Функция выводит шаблон кастомной ошибки не найден"""
     template = "core/404.html"
     context = {
         "path": request.path,
@@ -13,10 +14,12 @@ def page_not_found(request, exception):
 
 
 def csrf_failure(request, reason=""):
+    """Функция выводит шаблон кастомной ошибки csrf-токена"""
     return render(request, "core/403csrf.html")
 
 
 def bad_request(request, exception):
+    """Функция кастомной ошибки неверный запрос"""
     template = "core/404.html"
     context = {
         "path": request.path,
@@ -27,6 +30,7 @@ def bad_request(request, exception):
 
 
 def forbidden(request, exception):
+    """Функция кастомной ошибки нет доступа"""
     template = "core/404.html"
     context = {
         "path": request.path,
@@ -37,6 +41,7 @@ def forbidden(request, exception):
 
 
 def server_error(request):
+    """Функция кастомной ошибки ошибка сервера"""
     template = "core/404.html"
     context = {
         "path": request.path,
