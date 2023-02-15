@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class SignUp(CreateView):
+    """Регистрация пользователей"""
     form_class = CreationForm
     success_url = reverse_lazy("posts:index")
     template_name = "users/signup.html"
@@ -16,6 +17,7 @@ class SignUp(CreateView):
 
 @login_required
 def edit_name(request, username):
+    """Редактирование имени пользователя"""
     User = get_user_model()
     author = get_object_or_404(User, username=username)
     form = EditName(request.POST or None, instance=author)
@@ -42,6 +44,7 @@ def edit_name(request, username):
 
 @login_required
 def edit_login(request, username):
+    """Редактирование логина пользователя"""
     User = get_user_model()
     author = get_object_or_404(User, username=username)
     form = EditLogin(request.POST or None, instance=author)
@@ -67,6 +70,7 @@ def edit_login(request, username):
 
 @login_required
 def cabinet(request, username):
+    """Личный кабинет"""
     User = get_user_model()
     author = get_object_or_404(User, username=username)
     title = f"Личный кабинет {author}"
@@ -78,6 +82,7 @@ def cabinet(request, username):
 
 
 def feedback(request):
+    """Форма для обратной связи с разработчиком"""
     form = Feedback(request.POST or None)
     if form.is_valid():
         subject = form.cleaned_data["subject"]
