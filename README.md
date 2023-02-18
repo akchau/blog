@@ -41,11 +41,14 @@ python3 manage.py runserver
 ```
 ###### Автор - Глеб Лазарев, 2022
 
-Примеры запросов
-1. Запрос к постам
+### Примеры запросов
+
+#### 1. Запрос к постам
+
 [GET, POST] http://127.0.0.1:8000/api/v1/posts/
 
-Response
+#### Response
+```
 {
     "count": 123,
     "next": "http://api.example.org/accounts/?offset=400&limit=100",
@@ -61,10 +64,13 @@ Response
         }
     ]
 }
-2. Запрос к посту
+```
+#### 2. Запрос к посту
+
 [GET, PULL, PATCH, DELETE] http://127.0.0.1:8000/api/v1/posts/{id}/
 
-Response
+#### Response
+```
 {
   "id": 0,
   "author": "string",
@@ -73,10 +79,15 @@ Response
   "image": "string",
   "group": 0
 }
-3. Запрос к комментариям поста
+```
+
+
+#### 3. Запрос к комментариям поста
+
 [GET, POST] http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/
 
-Response
+#### Response
+```
 [
     {
         "id": 0,
@@ -86,10 +97,16 @@ Response
         "post": 0
     }
 ]
-4. Подписка на автора
+```
+
+
+#### 4. Подписка на автора
+
 [GET, POST] http://127.0.0.1:8000/api/v1/follow/
 
-Response
+#### Response
+```
 {
     "following": "string"
 }
+```
