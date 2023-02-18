@@ -112,3 +112,5 @@ python3 manage.py runserver
     "following": "string"
 }
 ```
+
+[Перейти к остальным проектам](https://github.com/akchau/akchau/blob/main/README.md#проекты)
